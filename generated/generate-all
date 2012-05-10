@@ -1,0 +1,8 @@
+#!/bin/sh
+
+script=`dirname $0`/../generate-lang
+
+$script     >gpl3-ru.txt
+$script -e  >gpl3-en.txt
+$script -H  >gpl3-ru.html
+$script -eH >gpl3-en.html

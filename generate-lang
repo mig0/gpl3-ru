@@ -1,0 +1,156 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use FindBin qw($Bin);
+use Getopt::Long qw(:config no_ignore_case bundling);
+
+my $source_filename = "$Bin/gpl3-en-ru.txt";
+die "No source file $source_filename found, exiting.\n"
+	unless -f $source_filename;
+
+sub show_usage (;$) {
+	my $is_error = shift || 0;
+	my $out = $is_error ? \*STDERR : \*STDOUT;
+	my $usage = qq{
+		Usage: $0 [OPTIONS]
+		Generate GPL 3 license in a single language from the source file.
+
+		Options:
+			-h --help		 show this usage
+			-e --english    generate the license in English, rather than Russian;
+			                should be byte-to-byte identical to the FSF original
+			-H --html		 generate html instead of plain text
+	};
+	$usage =~ s/^\n//; $usage =~ s/^\t\t?//mg;
+	print $out $usage;
+	exit $is_error;
+}
+
+my $generate_english = 0;
+my $generate_html = 0;
+
+GetOptions(
+	'h|help'       => sub { show_usage(0) },
+	"e|english"    => \$generate_english,
+	"H|html"       => \$generate_html,
+) or show_usage(1);
+
+my $html_header = q[<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Unofficial Russian Translation of GNU GPL version 3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="keywords" content="GNU General Public License, GNU GPL,
+	Unofficial translation, Russian, Стандартная Общественная Лицензия GNU">
+<meta name="description" content="Неофициальный перевод
+	Стандартной Общественной Лицензии GNU на русский язык">
+<style>
+h1, h2, h4 { text-align: center; }
+</style>
+</head>
+<body>
+];
+
+my $html_footer = q[
+</body>
+</html>
+];
+
+my $is_disclaimer = 1;
+my $is_origin = 0;
+
+# these flags are for html only
+my $is_first_line = 1;
+my $is_first_headline = 1;
+my $is_after_headline = 0;
+my $is_p_started = 0;
+my $is_pre_started = 0;
+my $is_ul_started = 0;
+my $is_li_started = 0;
+
+open SRC, "<$source_filename" or die "Can't open $source_filename: $!\n";
+while (<SRC>) {
+	if (/^{$/) {
+		$is_origin = 1;
+		next unless $is_disclaimer;
+		$is_disclaimer = 0;
+		next if $generate_html;
+		$_ = "\n";  # add initial extra empty line if plain text
+	}
+	if (/^}$/) {
+		$is_origin = 0;
+		next;
+	}
+	next if $is_disclaimer && $generate_english;
+	if (/^\s*$/) {
+		$_ = "\n" if $generate_html || !$generate_english;
+	} else {
+		# skip if another language
+		next if $is_origin != $generate_english;
+	}
+
+	if ($generate_html) {
+		# replace hyperlinks or htmlize
+		s!<(.*?)>!my $a = $1; $a =~ /^\w+:/
+			? qq(<a href="$a">$a</a>) : "&lt;$a&gt;"!eg;
+		if ($is_first_line) {
+			print $html_header;
+			$is_first_line = 0;
+		}
+		if (/^\s{5,}(.*)/ || /^\s*()(\d+\. .*)/) {
+			my $hh = $2 ? "h3" : $is_first_headline ? "h1" :
+				index($1, 2007) == -1 && length($1) < 40 ? "h2" : "h4";
+			my $content = $2 || $1;
+			$_ = "<$hh>$content</$hh>\n";
+			$is_after_headline = 1;
+			$is_first_headline = 0;
+		} elsif ($is_after_headline) {
+			$is_after_headline = 0;
+		} elsif (/^\s{4}(.*)/) {
+			if (/^\s*\S+\)/ || $is_ul_started) {
+				if (!$is_ul_started) {
+					print "<ul>\n";
+					$is_ul_started = 1;
+				}
+				if (!$is_li_started) {
+					print "<li>\n";
+					$is_li_started = 1;
+				}
+			} else {
+				if (!$is_pre_started) {
+					print "<pre>\n";
+					$is_pre_started = 1;
+				}
+			}
+		} elsif ($_ eq "\n") {
+			if ($is_li_started) {
+				print "</li>\n";
+				$is_li_started = 0;
+			} elsif ($is_pre_started) {
+				print "</pre>\n";
+				$is_pre_started = 0;
+			} else {
+				print "</p>\n";
+				$is_p_started = 0;
+			}
+		} else {
+			if ($is_ul_started) {
+				print "</ul>\n";
+				$is_ul_started = 0;
+			}
+			if (!$is_p_started) {
+				print "<p>\n";
+				$is_p_started = 1;
+			}
+			$_ .= "<br>\n" if /^ Copyright/;
+		}
+	}
+
+	print;
+}
+close SRC;
+
+print $html_footer if $generate_html;
