@@ -1,3 +1,11 @@
+                  Перевод лицензии GNU GPL версии 3
+
+ Copyright (C) 2007 Savkov Artem (sm00th.trac3r@gmail.com)
+ Copyright (C) 2007 Palazchenko Aleksey (alek.silverstone@gmail.com)
+ Copyright (C) 2012 Mikhael Goikhman (migo@freeshell.org)
+ Каждый имеет право распространять и улучшать данный перевод, не
+ накладывая на распространение своих улучшений дополнительных требований.
+
   This is an unofficial translation of the GNU General Public License
 into Russian.  It was not published by the Free Software Foundation, and
 does not legally state the distribution terms for software that uses the
