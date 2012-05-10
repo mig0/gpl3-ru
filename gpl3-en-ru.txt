@@ -1,9 +1,9 @@
-  This is is an unofficial translation of the GNU General Public License
+  This is an unofficial translation of the GNU General Public License
 into Russian.  It was not published by the Free Software Foundation, and
 does not legally state the distribution terms for software that uses the
 GNU GPL - only the original English text of the GNU GPL does that.
 However, we hope that this translation will help Russian speakers
-understand the GNU GPL better.
+to understand the GNU GPL better.
 
   Настоящий перевод Стандартной Общественной Лицензии GNU на русский язык
 не является официальным. Он не опубликован Фондом Свободного Программного
@@ -497,7 +497,7 @@ recipients a copy of this License along with the Program.
 and you may offer support or warranty protection for a fee.
 }
   Вы можете установить любую цену, либо не устанавливать цену, за каждую
-копию, передоваемую Вами, также Вы можете предлагать поддержку или
+копию, передаваемую Вами, также Вы можете предлагать поддержку или
 гарантии за плату.
 
 {
@@ -871,7 +871,7 @@ that material) supplement the terms of this License with terms:
     requiring that modified versions of such material be marked in
     reasonable ways as different from the original version; or
 }
-    в) Заперт на введение в заблуждение относительно происхождения этого
+    в) Запрет на введение в заблуждение относительно происхождения этого
     материала, либо требование к модифицированным версиям такого
     материала содержать пометку в надлежащей форме о том, что материал
     отличается от оригинальной версии; либо
@@ -1493,7 +1493,7 @@ the "copyright" line and a pointer to where the full notice is found.
 {
 Also add information on how to contact you by electronic and paper mail.
 }
-  Так же добавьте информацию о том, как можно связаться с вами по
+  Также добавьте информацию о том, как можно связаться с вами по
 электронной и обычной почте.
 
 {
@@ -1512,20 +1512,20 @@ notice like this when it starts in an interactive mode:
 }
     <название программы> Copyright (C) <год> <имя автора>
     Это программа распространяется БЕЗ ВСЯКИХ ГАРАНТИЙ; для получения
-    дополнительной информации наберите `show w'.
-    Это свободное программное обеспечение, и Вы можете распространять её
+    дополнительной информации наберите 'show w'.
+    Это свободное программное обеспечение, и Вы можете распространять его
     в соответствии с конкретными условиями; для получения дополнительной
-    информации наберите `show c'.
+    информации наберите 'show c'.
 
 {
 The hypothetical commands `show w' and `show c' should show the appropriate
 parts of the General Public License.  Of course, your program's commands
 might be different; for a GUI interface, you would use an "about box".
 }
-  Гипотетические команды `show w` и `show c` должны показывать
+  Гипотетические команды 'show w' и 'show c' должны показывать
 соответствующие части Стандартной Общественной Лицензии. Конечно, команды
 Вашей программы могут быть другими; в случае графического интерфейса
-пользователя, Вы можете использовать диалоговое окно <О программе>.
+пользователя, Вы можете использовать диалоговое окно "О программе".
 
 {
   You should also get your employer (if you work as a programmer) or school,
@@ -1533,7 +1533,7 @@ if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU GPL, see
 <http://www.gnu.org/licenses/>.
 }
-  Так же, в случае необходимости, Вам следует получить от Вашего
+  Также, в случае необходимости, Вам следует получить от Вашего
 работодателя (если Вы работаете программистом) или учебного заведения
 (если учитесь) письменный отказ от авторских прав на программу. Для
 дополнительной информации об этом, а также о применении и исполнении
